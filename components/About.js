@@ -1,4 +1,5 @@
 import React from 'react';
-const About = () => <span>{new Date().getDate()}</span>
+import Layout from './Layout/Layout';
+const About = () => <Layout><span>{new Date().getDate()}</span></Layout>
 
 export default About;

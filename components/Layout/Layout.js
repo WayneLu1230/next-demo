@@ -1,8 +1,9 @@
 import React from 'react';
 import Head from 'next/head';
 import './Layout.scss';
+import Link from 'next/link';
 
-const Layout = ({login,children}) => (
+const Layout = ({children}) => (
     <div className="layout">
         <Head>
             <meta name='viewport' content='width=device-width, initial-scale=1' />
@@ -11,7 +12,13 @@ const Layout = ({login,children}) => (
             <link rel='stylesheet' href='/_next/static/style.css' />
         </Head>
         <div className="content">
-            <p>{login}</p>
+            <Link href="/">
+                <a>首页</a>
+            </Link>
+            <Link href="/about">
+                <a>关于我们</a>
+            </Link>
+            <br/>
             {children}
         </div>
     </div>

@@ -1,68 +1,39 @@
-import React,{Component} from 'react'
-import Link from 'next/link'
-import { Provider } from 'react-redux';
-import { createStore } from 'redux'
-import Route from '../routes/route';
-// import App from '../containers/App/Index'
-
+import React, {Component} from 'react'
 import {connect} from 'react-redux';
 import Layout from '../components/Layout/Layout';
+import {login, logout} from "../components/Layout/LayoutAction";
+import {Button} from 'antd';
 
-class Index extends Component {
+const mapStateToProps = state => {
+    return {
+        isLogin: state.layout.isLogin,
+    }
+}
 
-    static getInitialProps ({ reduxStore, req }) {
-        console.log(reduxStore)
+const mapDispatchToProps = dispatch => {
 
-        return {}
+    return {
+        login: () => login(dispatch, {isLogin: true}),
+        logout: () => logout(dispatch, {isLogin: false}),
     }
 
+}
+
+class Index extends Component {
     render() {
+
+        const {isLogin, login, logout} = this.props;
+
         return (
-            <Layout login="login"><span>Layout</span></Layout>
+            <Layout>
+                <Button onClick={login}>登录</Button>
+                <Button onClick={logout}>退出</Button>
+                <span>测试：{isLogin ? '成功' : '失败'}</span>
+            </Layout>
         )
     }
 
 }
 
-export default connect()(Index)
-
-//
-// let store = createStore((state,action) => state)
-// class Home extends Component{
-//   render(){
-//     return (
-//         <Provider store={store}>
-//             <Route/>
-//         </Provider>
-//     )
-//   }
-//
-// }
-//
-// export default Home
-
-
-// import React, { Fragment } from 'react';
-// import { Button } from 'antd';
-// import Link from 'next/link';
-// import Head from 'next/head';
-// import './index.scss'
-//
-// const Home = () => (
-//     <Fragment>
-//         <Head>
-//             <meta name='viewport' content='width=device-width, initial-scale=1' />
-//             <meta charSet='utf-8' />
-//             <title>Next-Antd-Scafflod</title>
-//             <link rel='stylesheet' href='/_next/static/style.css' />
-//         </Head>
-//         <Fragment>
-//             <h1>我是Next的首页</h1>
-//             <Link href='/userList'>
-//                 <Button type='primary'>用户列表页</Button>
-//             </Link>
-//             <p className="test">hahah</p>
-//         </Fragment>
-//     </Fragment>
-// );
-// export default Home;
+export default connect(mapStateToProps,
+    mapDispatchToProps)(Index)
